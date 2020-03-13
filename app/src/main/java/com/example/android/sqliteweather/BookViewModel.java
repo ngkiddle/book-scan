@@ -24,7 +24,7 @@ public class BookViewModel extends ViewModel {
         mLoadingStatus = mRepository.getLoadingStatus();
     }
 
-    public void loadForecast(String isbn) {
+    public void loadBook(String isbn) {
         mRepository.loadBooks(isbn);
     }
 
