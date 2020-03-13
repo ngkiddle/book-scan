@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.android.sqliteweather.R;
-import com.example.android.sqliteweather.data.GoodreadsResponse;
+import com.example.android.sqliteweather.data.BooksResponse;
 import com.example.android.sqliteweather.data.ForecastItem;
 import com.google.gson.Gson;
 
@@ -25,9 +25,8 @@ public class OpenWeatherMapUtils {
 
     private final static String OWM_FORECAST_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
-    private final static String GOODREADS_BASE_URL = "https://www.goodreads.com/book/isbn";
-    private final static String GOODREADS_KEY_PARAM = "key";
-    private final static String GOODREADS_KEY = "WhQA2hFisHgBqZZLW90vDg";
+    private final static String OL_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
+    private final static String OL_QUERY_PARAM= "q";
 
     private final static String OWM_ICON_URL_FORMAT_STR = "https://openweathermap.org/img/w/%s.png";
     private final static String OWM_FORECAST_QUERY_PARAM = "q";
@@ -77,9 +76,8 @@ public class OpenWeatherMapUtils {
     }
 
     public static String buildGoodReadsURL(String isbn) {
-        return Uri.parse(GOODREADS_BASE_URL).buildUpon()
-                .appendPath(isbn)
-                .appendQueryParameter(GOODREADS_KEY_PARAM, GOODREADS_KEY)
+        return Uri.parse(OL_BASE_URL).buildUpon()
+                .appendQueryParameter(OL_QUERY_PARAM, "isbn:" + isbn)
                 .build()
                 .toString();
     }
@@ -98,14 +96,9 @@ public class OpenWeatherMapUtils {
     }
 
 
-    public static GoodreadsResponse parseBookXML(String bookXML) throws Exception {
-        Serializer serializer = new Persister();
-        GoodreadsResponse res = new GoodreadsResponse();
-        try {
-            res = serializer.read(GoodreadsResponse.class, bookXML);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public static BooksResponse parseBookJSON(String bookJSON) throws Exception {
+        Gson gson = new Gson();
+        BooksResponse res = gson.fromJson(bookJSON, BooksResponse.class);
         return res;
     }
 
