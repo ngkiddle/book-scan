@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Path;
 import android.net.Uri;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +25,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.sqliteweather.data.BooksResponse;
 import com.example.android.sqliteweather.data.ForecastItem;
 import com.example.android.sqliteweather.data.ForecastLocation;
 import com.example.android.sqliteweather.data.Status;
@@ -38,20 +38,24 @@ public class MainActivity extends AppCompatActivity
         implements ForecastAdapter.OnForecastItemClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener,
         LocationsAdapter.OnLocationItemClickListener,
-        NavigationView.OnNavigationItemSelectedListener{
+        NavigationView.OnNavigationItemSelectedListener, BooksAdapter.OnBookItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private TextView mForecastLocationTV;
     private RecyclerView mForecastItemsRV;
     private RecyclerView mLocationItemsRV;
+    private RecyclerView mBookItemsRV;
     private ProgressBar mLoadingIndicatorPB;
     private TextView mLoadingErrorMessageTV;
     private DrawerLayout mDrawerLayout;
 
+    private BooksAdapter mBooksAdapter;
     private LocationsAdapter mLocationsAdapter;
     private ForecastAdapter mForecastAdapter;
     private ForecastViewModel mForecastViewModel;
+    private BookViewModel mBookViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,27 @@ public class MainActivity extends AppCompatActivity
 
 
         /* SQLITE CHANGES */
+
+        mBookItemsRV = findViewById(R.id.rv_book_items);
+        mBooksAdapter = new BooksAdapter (this);
+        mBookItemsRV.setAdapter(mBooksAdapter);
+        mBookItemsRV.setLayoutManager(new LinearLayoutManager(this));
+        mBookItemsRV.setHasFixedSize(true);
+
+        mBookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
+        mBookViewModel.loadBook("9780590353427");
+
+
+        LiveData<BooksResponse> book =
+                mBookViewModel.getBook();
+
+        book.observe(this, new Observer<BooksResponse>() {
+            @Override
+            public void
+            onChanged(@Nullable BooksResponse book) {
+                mBooksAdapter.updateBookItems(book);
+            }
+        });
 
         mLocationItemsRV = navigationView.findViewById(R.id.rv_location_items);
 
@@ -251,5 +276,10 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.edit().putString(getString(R.string.pref_location_key), forecastItem.loc_name).apply();
         mDrawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onBookItemClick(BooksResponse forecastItem) {
+
     }
 }
