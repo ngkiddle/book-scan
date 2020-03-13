@@ -25,8 +25,8 @@ public class OpenWeatherMapUtils {
 
     private final static String OWM_FORECAST_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
-    private final static String OL_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
-    private final static String OL_QUERY_PARAM= "q";
+    private final static String GB_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
+    private final static String GB_QUERY_PARAM= "q";
 
     private final static String OWM_ICON_URL_FORMAT_STR = "https://openweathermap.org/img/w/%s.png";
     private final static String OWM_FORECAST_QUERY_PARAM = "q";
@@ -75,9 +75,9 @@ public class OpenWeatherMapUtils {
         float deg;
     }
 
-    public static String buildGoodReadsURL(String isbn) {
-        return Uri.parse(OL_BASE_URL).buildUpon()
-                .appendQueryParameter(OL_QUERY_PARAM, "isbn:" + isbn)
+    public static String buildGBurl(String isbn) {
+        return Uri.parse(GB_BASE_URL).buildUpon()
+                .appendQueryParameter(GB_QUERY_PARAM, "isbn:" + isbn)
                 .build()
                 .toString();
     }

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
 
+import java.net.HttpCookie;
 import java.util.Date;
 import java.util.List;
 
@@ -29,12 +30,13 @@ import java.util.List;
  * the cached version when appropriate.  See the docs for the method shouldFetchForecast() to see
  * when cached results are returned.
  */
-public class ForecastRepository implements LoadForecastTask.AsyncCallback, LoadBookTask.AsyncCallback {
+public class ForecastRepository implements LoadForecastTask.AsyncCallback {
 
     private static final String TAG = ForecastRepository.class.getSimpleName();
 
     private MutableLiveData<List<ForecastItem>> mForecastItems;
     private MutableLiveData<Status> mLoadingStatus;
+    private MutableLiveData<BooksResponse> mCurrBook;
 
     private String mCurrentLocation;
     private String mCurrentUnits;
@@ -50,14 +52,13 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback, LoadB
         mCurrentUnits = null;
     }
 
+
     /*
      * This method triggers loading of new forecast data for a given location and temperature
      * units.  New data is not fetched if valid cached data exists matching the specified location
      * and units.
      */
     public void loadForecast(String location, String units) {
-        String u = OpenWeatherMapUtils.buildGoodReadsURL("9780590353427");
-        new LoadBookTask(u, this).execute();
         if (shouldFetchForecast(location, units)) {
             mCurrentLocation = location;
             mCurrentUnits = units;
@@ -78,6 +79,7 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback, LoadB
     public LiveData<List<ForecastItem>> getForecast() {
         return mForecastItems;
     }
+
 
     /*
      * Returns the LiveData object containing the Repository's loading status.  An observer can be
@@ -124,9 +126,5 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback, LoadB
         }
     }
 
-    @Override
-    public void onBookFinished(BooksResponse res) {
-        Log.d("ayy", res.items[0].volumeInfo.title);
-    }
 }
 
