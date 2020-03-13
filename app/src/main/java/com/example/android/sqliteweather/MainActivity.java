@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Path;
 import android.net.Uri;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity
 
 
         /* SQLITE CHANGES */
+
         mLocationItemsRV = navigationView.findViewById(R.id.rv_location_items);
 
         mLocationsAdapter = new LocationsAdapter(this);
