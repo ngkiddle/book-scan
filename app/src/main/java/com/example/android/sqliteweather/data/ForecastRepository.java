@@ -29,7 +29,7 @@ import java.util.List;
  * the cached version when appropriate.  See the docs for the method shouldFetchForecast() to see
  * when cached results are returned.
  */
-public class ForecastRepository implements LoadForecastTask.AsyncCallback {
+public class ForecastRepository implements LoadForecastTask.AsyncCallback, LoadBookTask.AsyncCallback {
 
     private static final String TAG = ForecastRepository.class.getSimpleName();
 
@@ -56,6 +56,8 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback {
      * and units.
      */
     public void loadForecast(String location, String units) {
+        String u = OpenWeatherMapUtils.buildGoodReadsURL("9780590353427");
+        new LoadBookTask(u, this).execute();
         if (shouldFetchForecast(location, units)) {
             mCurrentLocation = location;
             mCurrentUnits = units;
@@ -120,6 +122,11 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback {
         } else {
             mLoadingStatus.setValue(Status.ERROR);
         }
+    }
+
+    @Override
+    public void onBookFinished(GoodreadsResponse res) {
+        Log.d("ayy", res.getBook());
     }
 }
 

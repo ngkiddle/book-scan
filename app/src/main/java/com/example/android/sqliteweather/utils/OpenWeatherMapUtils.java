@@ -2,10 +2,15 @@ package com.example.android.sqliteweather.utils;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.android.sqliteweather.R;
+import com.example.android.sqliteweather.data.GoodreadsResponse;
 import com.example.android.sqliteweather.data.ForecastItem;
 import com.google.gson.Gson;
+
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -19,6 +24,11 @@ public class OpenWeatherMapUtils {
     public static final String EXTRA_FORECAST_ITEM = "com.example.android.sqliteweather.utils.ForecastItem";
 
     private final static String OWM_FORECAST_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
+
+    private final static String GOODREADS_BASE_URL = "https://www.goodreads.com/book/isbn";
+    private final static String GOODREADS_KEY_PARAM = "key";
+    private final static String GOODREADS_KEY = "WhQA2hFisHgBqZZLW90vDg";
+
     private final static String OWM_ICON_URL_FORMAT_STR = "https://openweathermap.org/img/w/%s.png";
     private final static String OWM_FORECAST_QUERY_PARAM = "q";
     private final static String OWM_FORECAST_UNITS_PARAM = "units";
@@ -37,6 +47,7 @@ public class OpenWeatherMapUtils {
      * used to represent a single forecast item throughout the rest of the app is the ForecastItem
      * class in the data package.
      */
+
     static class OWMForecastResults {
         OWMForecastListItem[] list;
     }
@@ -65,7 +76,15 @@ public class OpenWeatherMapUtils {
         float deg;
     }
 
-    public static String buildForecastURL(String forecastLocation, String temperatureUnits) {
+    public static String buildGoodReadsURL(String isbn) {
+        return Uri.parse(GOODREADS_BASE_URL).buildUpon()
+                .appendPath(isbn)
+                .appendQueryParameter(GOODREADS_KEY_PARAM, GOODREADS_KEY)
+                .build()
+                .toString();
+    }
+
+        public static String buildForecastURL(String forecastLocation, String temperatureUnits) {
         return Uri.parse(OWM_FORECAST_BASE_URL).buildUpon()
                 .appendQueryParameter(OWM_FORECAST_QUERY_PARAM, forecastLocation)
                 .appendQueryParameter(OWM_FORECAST_UNITS_PARAM, temperatureUnits)
@@ -76,6 +95,18 @@ public class OpenWeatherMapUtils {
 
     public static String buildIconURL(String icon) {
         return String.format(OWM_ICON_URL_FORMAT_STR, icon);
+    }
+
+
+    public static GoodreadsResponse parseBookXML(String bookXML) throws Exception {
+        Serializer serializer = new Persister();
+        GoodreadsResponse res = new GoodreadsResponse();
+        try {
+            res = serializer.read(GoodreadsResponse.class, bookXML);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     public static ArrayList<ForecastItem> parseForecastJSON(String forecastJSON) {
