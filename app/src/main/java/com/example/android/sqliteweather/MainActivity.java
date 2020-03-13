@@ -29,6 +29,7 @@ import com.example.android.sqliteweather.data.ForecastItem;
 import com.example.android.sqliteweather.data.ForecastLocation;
 import com.example.android.sqliteweather.data.Status;
 import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
@@ -37,7 +38,9 @@ public class MainActivity extends AppCompatActivity
         implements ForecastAdapter.OnForecastItemClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener,
         LocationsAdapter.OnLocationItemClickListener,
-        NavigationView.OnNavigationItemSelectedListener{
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        BottomNavigationView.OnNavigationItemReselectedListener{
+
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar mLoadingIndicatorPB;
     private TextView mLoadingErrorMessageTV;
     private DrawerLayout mDrawerLayout;
-
+    private BottomNavigationView mBottomNavBar;
     private LocationsAdapter mLocationsAdapter;
     private ForecastAdapter mForecastAdapter;
     private ForecastViewModel mForecastViewModel;
@@ -58,10 +61,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        // NavBar!
+        mBottomNavBar = findViewById(R.id.bottom_navigationbar);
+        mBottomNavBar.setOnNavigationItemSelectedListener(this);
 
-        NavigationView navigationView =
-                findViewById(R.id.nv_nav_drawer);
-        navigationView.setNavigationItemSelectedListener(this);
+        // End NavBar
+        NavigationView navigationView = findViewById(R.id.nv_nav_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -235,19 +240,45 @@ public class MainActivity extends AppCompatActivity
         loadForecast(sharedPreferences);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        mDrawerLayout.closeDrawers();
-        switch (item.getItemId()) {
-            default:
-                return false;
-        }
-    }
-
+// NavBar
     @Override
     public void onForecastItemClick(ForecastLocation forecastItem) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.edit().putString(getString(R.string.pref_location_key), forecastItem.loc_name).apply();
         mDrawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onNavigationItemReselected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                Log.d("navBar", "reselected on home!");
+//                Intent startIntent = new Intent(this, MainActivity.class);
+//                startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                this.startActivity(startIntent);
+                showForecastLocationInMap();
+            case R.id.nav_scan:
+                Log.d("navBar", "reselected on scam!");
+                showForecastLocationInMap();
+        }
+    }
+// NavBar END
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                Log.d("navBar", "reselected on home!");
+//                Intent startIntent = new Intent(this, MainActivity.class);
+//                startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                this.startActivity(startIntent);
+                showForecastLocationInMap();
+                return true;
+            case R.id.nav_scan:
+                Log.d("navBar", "reselected on scam!");
+                showForecastLocationInMap();
+                return true;
+            default:
+                return false;
+        }
     }
 }
