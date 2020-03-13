@@ -44,23 +44,12 @@ class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d("woot", s);
         BooksResponse res = null;
         try {
             res = OpenWeatherMapUtils.parseBookJSON(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /*
-        if (s != null) {
-                //res = OpenWeatherMapUtils.parseForecastJSON(s);
-            try {
-                res = OpenWeatherMapUtils.parseBookXML(s);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }*/
-        Log.d("woot", res.items[0].volumeInfo.title);
         mCallback.onBookFinished(res);
     }
 }
