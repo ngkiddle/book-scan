@@ -12,29 +12,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eca88b8-f2e9-4472-b08a-bd15cf0c365d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_simpleframework_simple_xml_2_7_1_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/GoodreadsResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/LoadBookTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/book-scan.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/BooksResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/Links.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/VolumeInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/ForecastRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/ForecastRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/GoodreadsResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/LoadBookTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/data/LoadBookTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/utils/OpenWeatherMapUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/android/sqliteweather/utils/OpenWeatherMapUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book_scan.iml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,8 +78,8 @@
     <property name="sync.plugin.last.upgrade.timestamp" value="1583724024614" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.example.android.sqliteweather" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/menu" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
@@ -93,8 +87,8 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.android.sqliteweather.data" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res/menu" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.android.sqliteweather" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -229,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583792135566</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="trying to do xml parsing">
+      <created>1584062582801</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1584062582801</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,6 +254,7 @@
     <MESSAGE value="gets livedata of db query" />
     <MESSAGE value="recycler view in drawer showing" />
     <MESSAGE value="It all works, woo" />
-    <option name="LAST_COMMIT_MESSAGE" value="It all works, woo" />
+    <MESSAGE value="trying to do xml parsing" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to do xml parsing" />
   </component>
 </project>

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     public interface AsyncCallback {
-        void onBookFinished(GoodreadsResponse res);
+        void onBookFinished(BooksResponse res);
     }
 
     private String mURL;
@@ -33,21 +33,21 @@ class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-        String resXML = null;
+        String res = null;
         try {
-            resXML = NetworkUtils.doHTTPGet(mURL);
+            res = NetworkUtils.doHTTPGet(mURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return resXML;
+        return res;
     }
 
     @Override
     protected void onPostExecute(String s) {
-
-        GoodreadsResponse res = null;
+        Log.d("woot", s);
+        BooksResponse res = null;
         try {
-            res = OpenWeatherMapUtils.parseBookXML(s);
+            res = OpenWeatherMapUtils.parseBookJSON(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ class LoadBookTask extends AsyncTask<Void, Void, String> {
                 e.printStackTrace();
             }
         }*/
-        Log.d("woot", res.getBook());
+        Log.d("woot", res.items[0].volumeInfo.title);
         mCallback.onBookFinished(res);
     }
 }

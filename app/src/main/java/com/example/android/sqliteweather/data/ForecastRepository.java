@@ -125,8 +125,8 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback, LoadB
     }
 
     @Override
-    public void onBookFinished(GoodreadsResponse res) {
-        Log.d("ayy", res.getBook());
+    public void onBookFinished(BooksResponse res) {
+        Log.d("ayy", res.items[0].volumeInfo.title);
     }
 }
 
