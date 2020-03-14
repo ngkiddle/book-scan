@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
-import java.net.HttpCookie;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class ForecastRepository implements LoadForecastTask.AsyncCallback {
             mCurrentUnits = units;
             mForecastItems.setValue(null);
             mLoadingStatus.setValue(Status.LOADING);
-            String url = OpenWeatherMapUtils.buildForecastURL(location, units);
+            String url = GoogleBooksUtils.buildForecastURL(location, units);
             Log.d(TAG, "fetching new forecast data with this URL: " + url);
             new LoadForecastTask(url, this).execute();
         } else {

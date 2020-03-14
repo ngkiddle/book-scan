@@ -29,7 +29,7 @@ import com.example.android.sqliteweather.data.BooksResponse;
 import com.example.android.sqliteweather.data.ForecastItem;
 import com.example.android.sqliteweather.data.ForecastLocation;
 import com.example.android.sqliteweather.data.Status;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity
 
         mBookViewModel = new ViewModelProvider(this).get(BookViewModel.class);
         mBookViewModel.loadBook("9780590353427");
+        mBookViewModel.loadBook("0735619670");
+
 
 
         LiveData<BooksResponse> book =
@@ -94,7 +96,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void
             onChanged(@Nullable BooksResponse book) {
-                mBooksAdapter.updateBookItems(book);
+                if(book != null){
+                    mBooksAdapter.updateBookItems(book);
+                }
             }
         });
 
@@ -132,63 +136,9 @@ public class MainActivity extends AppCompatActivity
         // Remove shadow under action bar.
         //getSupportActionBar().setElevation(0);
 
-        mForecastLocationTV = findViewById(R.id.tv_forecast_location);
-        mLoadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
-        mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
-        mForecastItemsRV = findViewById(R.id.rv_forecast_items);
-
-        mForecastAdapter = new ForecastAdapter(this);
-        mForecastItemsRV.setAdapter(mForecastAdapter);
-        mForecastItemsRV.setLayoutManager(new LinearLayoutManager(this));
-        mForecastItemsRV.setHasFixedSize(true);
-
-
-
-        /*
-         * This version of the app code uses the new ViewModel architecture to manage data for
-         * the activity.  See the classes in the data package for more about how the ViewModel
-         * is set up.  Here, we simply grab the forecast data ViewModel.
-         */
-        mForecastViewModel = new ViewModelProvider(this).get(ForecastViewModel.class);
-
-        /*
-         * Attach an Observer to the forecast data.  Whenever the forecast data changes, this
-         * Observer will send the new data into our RecyclerView's adapter.
-         */
-        mForecastViewModel.getForecast().observe(this, new Observer<List<ForecastItem>>() {
-            @Override
-            public void onChanged(@Nullable List<ForecastItem> forecastItems) {
-                mForecastAdapter.updateForecastItems(forecastItems);
-            }
-        });
-
-        /*
-         * Attach an Observer to the network loading status.  Whenever the loading status changes,
-         * this Observer will ensure that the correct layout components are visible.  Specifically,
-         * it will make the loading indicator visible only when the forecast is being loaded.
-         * Otherwise, it will display the RecyclerView if forecast data was successfully fetched,
-         * or it will display the error message if there was an error fetching data.
-         */
-        mForecastViewModel.getLoadingStatus().observe(this, new Observer<Status>() {
-            @Override
-            public void onChanged(@Nullable Status status) {
-                if (status == Status.LOADING) {
-                    mLoadingIndicatorPB.setVisibility(View.VISIBLE);
-                } else if (status == Status.SUCCESS) {
-                    mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
-                    mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
-                    mForecastItemsRV.setVisibility(View.VISIBLE);
-                } else {
-                    mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
-                    mForecastItemsRV.setVisibility(View.INVISIBLE);
-                    mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         preferences.registerOnSharedPreferenceChangeListener(this);
-        loadForecast(preferences);
     }
 
     @Override
@@ -200,7 +150,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onForecastItemClick(ForecastItem forecastItem) {
         Intent intent = new Intent(this, ForecastItemDetailActivity.class);
-        intent.putExtra(OpenWeatherMapUtils.EXTRA_FORECAST_ITEM, forecastItem);
+        intent.putExtra(GoogleBooksUtils.EXTRA_FORECAST_ITEM, forecastItem);
         startActivity(intent);
     }
 

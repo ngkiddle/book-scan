@@ -1,23 +1,14 @@
 package com.example.android.sqliteweather;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.android.sqliteweather.data.ForecastItem;
 import com.example.android.sqliteweather.data.ForecastLocation;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
 
-import java.text.DateFormat;
 import java.util.List;
 
 public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.LocationViewHolder> {
