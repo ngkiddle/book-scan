@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.data.Status;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.util.List;
 
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        String u = OpenWeatherMapUtils.buildGBurl("9780605039070");
+        String u = GoogleBooksUtils.buildGBurl("9780605039070");
         new LoadBookTask(u, this).execute();
         /*END CHANGES*/
 
