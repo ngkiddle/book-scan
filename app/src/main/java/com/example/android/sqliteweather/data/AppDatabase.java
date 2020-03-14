@@ -6,9 +6,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {ForecastLocation.class}, version = 1)
+@Database(entities = {BookEntity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract SavedCityDao savedCitiesDao();
+    public abstract SavedBooksDoa savedBooksDao();
     private static volatile AppDatabase INSTANCE;
 
     static AppDatabase getDatabase(final Context context) {
@@ -17,7 +17,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE =
                             Room.databaseBuilder(context.getApplicationContext(),
-                                    AppDatabase.class, "forecast_cities_db")
+                                    AppDatabase.class, "books_db")
                                     .build();                }
             }
         }

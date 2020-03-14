@@ -5,11 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.data.BooksResponse;
 
 import java.util.ArrayList;
@@ -17,21 +19,27 @@ import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHolder> {
 
-    private List<BooksResponse> mBookItems;
-    private BooksAdapter.OnBookItemClickListener mLocationItemClickListener;
+    private List<BookEntity> mBookItems;
+    private BooksAdapter.OnBookItemClickListener mBookItemClickListener;
 
     public interface OnBookItemClickListener {
-        void onBookItemClick(BooksResponse forecastItem);
+        void onBookItemClick(BookEntity book);
     }
 
     public BooksAdapter(BooksAdapter.OnBookItemClickListener clickListener) {
-        mLocationItemClickListener = clickListener;
-        mBookItems = new ArrayList<>();
+        mBookItemClickListener = clickListener;
     }
 
-    public void updateBookItems(BooksResponse book) {
-        mBookItems.add(book);
-        notifyDataSetChanged();
+    public void updateBookItems(List<BookEntity> books) {
+            mBookItems = books;
+            notifyDataSetChanged();
+    }
+
+    public void addBookItem(BookEntity book) {
+        if(book != null) {
+            mBookItems.add(book);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -73,14 +81,16 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
         @Override
         public void onClick(View v) {
-            BooksResponse book = mBookItems.get(getAdapterPosition());
-            mLocationItemClickListener.onBookItemClick(book);
+            BookEntity book = mBookItems.get(getAdapterPosition());
+            mBookItemClickListener.onBookItemClick(book);
         }
 
-        public void bind(BooksResponse book) {
-            mTitle.setText(book.items[0].volumeInfo.title);
-            mAuthor.setText(book.items[0].volumeInfo.authors[0]);
-            Glide.with(mBookIcon.getContext()).load(book.items[0].volumeInfo.imageLinks.thumbnail).into(mBookIcon);
+        public void bind(BookEntity book) {
+            if (book != null) {
+                mTitle.setText(book.title);
+                mAuthor.setText(book.authors);
+                Glide.with(mBookIcon.getContext()).load(book.imageLinks).into(mBookIcon);
+            }
         }
     }
 }
