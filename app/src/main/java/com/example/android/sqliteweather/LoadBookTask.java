@@ -1,14 +1,12 @@
 package com.example.android.sqliteweather;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.utils.NetworkUtils;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /*
  * This is our AsyncTask for loading forecast data from OWM.  It mirrors the AsyncTask we used
@@ -47,7 +45,7 @@ class LoadBookTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String s) {
         BookEntity res = null;
         try {
-            res = OpenWeatherMapUtils.parseBookJSON(s);
+            res = GoogleBooksUtils.parseBookJSON(s);
         } catch (Exception e) {
             e.printStackTrace();
         }

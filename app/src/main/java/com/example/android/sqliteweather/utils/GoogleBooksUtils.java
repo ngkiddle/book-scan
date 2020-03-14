@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class OpenWeatherMapUtils {
+public class GoogleBooksUtils {
 
     private final static String GB_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
     private final static String GB_QUERY_PARAM= "q";
