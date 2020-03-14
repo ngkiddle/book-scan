@@ -1,5 +1,6 @@
 package com.example.android.sqliteweather.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,15 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sqliteweather.MainActivity;
 import com.example.android.sqliteweather.R;
+import com.example.android.sqliteweather.bookdetail.BookDetailActivity;
 import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements
-        LibraryAdapter.OnBookItemClickListener,
-        LoadBookTask.AsyncCallback {
+public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -61,8 +61,8 @@ public class HomeFragment extends Fragment implements
             }
         });
 
-        String u = GoogleBooksUtils.buildGBurl("9780605039070");
-        new LoadBookTask(u, this).execute();
+        mLibraryViewModel.insertBook(new BookEntity("394723489283947", "Book Title", "Author", "foo bar", "http://www.google.com"));
+        mLibraryViewModel.insertBook(new BookEntity("394723489283948", "Book Title2", "Author", "foo bar", "http://www.google.com"));
         /*END CHANGES*/
 
         return root;
@@ -70,11 +70,8 @@ public class HomeFragment extends Fragment implements
 
     @Override
     public void onBookItemClick(BookEntity book) {
-
-    }
-
-    @Override
-    public void onBookFinished(BookEntity res) {
-        mLibraryViewModel.insertBook(res);
+        Intent intent = new Intent(getContext(), BookDetailActivity.class);
+        intent.putExtra(BookDetailActivity.EXTRA_ISBN, book.isbn);
+        getContext().startActivity(intent);
     }
 }

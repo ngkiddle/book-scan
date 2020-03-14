@@ -41,6 +41,18 @@ public class BookDetailViewModel extends ViewModel {
         return mError;
     }
 
+    public void fetchCachedBook(String isbn) {
+        new FetchBookAsyncTask(isbn, new FetchBookAsyncTask.Callback() {
+            @Override
+            public void onFinish(BookEntity bookEntity) {
+                mBookEntity.setValue(bookEntity);
+            }
+            public void onError() {
+                mError.setValue(true);
+            }
+        }).execute();
+    }
+
     public void fetchBook(String isbn) {
         new FetchBookAsyncTask(isbn, new FetchBookAsyncTask.Callback() {
             @Override

@@ -2,18 +2,15 @@ package com.example.android.sqliteweather.data;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.android.sqliteweather.home.LoadBookTask;
-import com.example.android.sqliteweather.utils.GoogleBooksUtils;
-import com.example.android.sqliteweather.utils.NetworkUtils;
-
-import java.io.IOException;
 import java.util.List;
 
 public class SavedBooksRepository {
+    private static final String TAG = "SavedBooksRepository";
+
     private SavedBooksDao mSavedBooksDao;
 
     public SavedBooksRepository(Application application) {

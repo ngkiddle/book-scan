@@ -1,6 +1,7 @@
 package com.example.android.sqliteweather.data;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 public class BookEntity implements Serializable {
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "isbn")
     public String isbn;
 
     public String title;

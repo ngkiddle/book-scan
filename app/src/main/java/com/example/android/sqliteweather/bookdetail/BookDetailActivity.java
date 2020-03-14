@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,6 @@ public class BookDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_book_detail);
-        final View contentView = findViewById(R.id.book_detail_container);
         mViewModel = new ViewModelProvider(this).get(BookDetailViewModel.class);
         mLibraryViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(LibraryViewModel.class);
 
@@ -66,7 +66,12 @@ public class BookDetailActivity extends AppCompatActivity {
             mActionB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO share intent
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "foo");
+                    shareIntent.setType("text/plain");
+
+                    Intent chooserIntent = Intent.createChooser(shareIntent, null);
+                    startActivity(chooserIntent);
                 }
             });
         } else {
@@ -79,7 +84,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     onBackPressed();
                 }
             });
-            mViewModel.fetchBook("9780605039070");
+            mViewModel.fetchBook("9780060531041");
             toggleProgressBar(true);
         }
 
@@ -107,7 +112,6 @@ public class BookDetailActivity extends AppCompatActivity {
                 if(err) {
                     toggleProgressBar(false);
                     mActionB.setVisibility(View.GONE);
-                    Snackbar.make(contentView, "Pee", BaseTransientBottomBar.LENGTH_SHORT);
                     Toast.makeText(BookDetailActivity.this, "Book not found.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -122,14 +126,6 @@ public class BookDetailActivity extends AppCompatActivity {
             mDetailsLL.setVisibility(View.VISIBLE);
             mLoadingPB.setVisibility(View.GONE);
         }
-    }
-
-    private void testPop(String isbn) {
-        List<String> authors = new ArrayList<>();
-        authors.add("Ian Collier");
-        Book book = new Book(isbn, "Sample Book", "This is a sample book. Lorem ipsum.", "https://upload.asdasdasdasdsadasdasd.org/wikipedia/commons/a/ac/NewTux.png", authors);
-
-        //populateViews(book);
     }
 
     private void populateViews(BookEntity book) {

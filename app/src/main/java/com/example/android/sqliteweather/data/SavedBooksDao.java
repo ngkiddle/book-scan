@@ -18,6 +18,9 @@ public interface SavedBooksDao {
     @Query("SELECT * FROM books")
     LiveData<List<BookEntity>> getAllBooks();
 
+    @Query("SELECT * FROM books WHERE isbn = :isbn")
+    LiveData<BookEntity> getBook(String isbn);
+
     @Delete
     void delete(BookEntity b);
 }

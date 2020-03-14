@@ -1,6 +1,7 @@
 package com.example.android.sqliteweather;
 
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_scan)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
-
 }

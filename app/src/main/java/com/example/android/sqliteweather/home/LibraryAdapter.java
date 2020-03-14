@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.data.BookEntity;
 
@@ -87,7 +88,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.BookView
             if (book != null) {
                 mTitle.setText(book.title);
                 mAuthor.setText(book.authors);
-                Glide.with(mBookIcon.getContext()).load(book.imageLinks).into(mBookIcon);
+                Glide.with(mBookIcon.getContext())
+                        .load(book.imageLinks)
+                        .apply(new RequestOptions()
+                                .placeholder(R.drawable.placeholder_cover_2)
+                                .fitCenter()
+                        )
+                        .into(mBookIcon);
             }
         }
     }
