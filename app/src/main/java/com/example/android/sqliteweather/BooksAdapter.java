@@ -1,5 +1,6 @@
 package com.example.android.sqliteweather;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
         public void bind(BooksResponse book) {
             mTitle.setText(book.items[0].volumeInfo.title);
             mAuthor.setText(book.items[0].volumeInfo.authors[0]);
-            Glide.with(mBookIcon.getContext()).load(book.items[0].volumeInfo.imageLinks.thumbnail).into(mBookIcon);
+            Log.d("Nice", book.items[0].volumeInfo.imageLinks.thumbnail);
+            Glide.with(mBookIcon).load(book.items[0].volumeInfo.imageLinks.thumbnail).into(mBookIcon);
         }
     }
 }
