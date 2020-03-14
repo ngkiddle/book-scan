@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
-import com.example.android.sqliteweather.data.SavedCityRepository;
-
 public class SettingsActivity extends AppCompatActivity {
 
 

@@ -26,8 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.sqliteweather.data.BooksResponse;
-import com.example.android.sqliteweather.data.ForecastItem;
-import com.example.android.sqliteweather.data.ForecastLocation;
 import com.example.android.sqliteweather.data.Status;
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 import com.google.android.material.navigation.NavigationView;
@@ -35,10 +33,9 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements ForecastAdapter.OnForecastItemClickListener,
+        implements
         SharedPreferences.OnSharedPreferenceChangeListener,
-        LocationsAdapter.OnLocationItemClickListener,
-        NavigationView.OnNavigationItemSelectedListener, BooksAdapter.OnBookItemClickListener {
+        BooksAdapter.OnBookItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -51,9 +48,6 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
 
     private BooksAdapter mBooksAdapter;
-    private LocationsAdapter mLocationsAdapter;
-    private ForecastAdapter mForecastAdapter;
-    private ForecastViewModel mForecastViewModel;
     private BookViewModel mBookViewModel;
 
 
@@ -64,15 +58,6 @@ public class MainActivity extends AppCompatActivity
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView =
-                findViewById(R.id.nv_nav_drawer);
-        navigationView.setNavigationItemSelectedListener(this);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
 
         /* SQLITE CHANGES */
@@ -102,34 +87,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        mLocationItemsRV = navigationView.findViewById(R.id.rv_location_items);
-
-        mLocationsAdapter = new LocationsAdapter(this);
-        mLocationItemsRV.setAdapter(mLocationsAdapter);
-        mLocationItemsRV.setLayoutManager(new LinearLayoutManager(this));
-        mLocationItemsRV.setHasFixedSize(true);
-
-
-        SavedCitiesViewModel savedCitiesViewModel =
-                new ViewModelProvider(
-                        this,
-                        new ViewModelProvider.AndroidViewModelFactory(
-                                getApplication()
-                        )
-                ).get(SavedCitiesViewModel.class);
-
-        LiveData<List<ForecastLocation>> allRepos =
-                savedCitiesViewModel.getAllLocations();
-
-
-        allRepos.observe(this, new Observer<List<ForecastLocation>>() {
-            @Override
-            public void
-            onChanged(@Nullable List<ForecastLocation> gitHubRepos) {
-                Log.d("yea", Integer.toString(gitHubRepos.size()));
-                mLocationsAdapter.updateForecastItems(gitHubRepos);
-            }
-        });
 
         /*END CHANGES*/
 
@@ -147,12 +104,7 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-    @Override
-    public void onForecastItemClick(ForecastItem forecastItem) {
-        Intent intent = new Intent(this, ForecastItemDetailActivity.class);
-        intent.putExtra(GoogleBooksUtils.EXTRA_FORECAST_ITEM, forecastItem);
-        startActivity(intent);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,12 +115,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.action_location:
-                showForecastLocationInMap();
-                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
@@ -189,44 +135,15 @@ public class MainActivity extends AppCompatActivity
         );
 
         mForecastLocationTV.setText(location);
-        mForecastViewModel.loadForecast(location, units);
+       // mForecastViewModel.loadForecast(location, units);
     }
 
-    public void showForecastLocationInMap() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String forecastLocation = sharedPreferences.getString(
-                getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default_value)
-        );
-        Uri geoUri = Uri.parse("geo:0,0").buildUpon()
-                .appendQueryParameter("q", forecastLocation)
-                .build();
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, geoUri);
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        }
-    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         loadForecast(sharedPreferences);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        mDrawerLayout.closeDrawers();
-        switch (item.getItemId()) {
-            default:
-                return false;
-        }
-    }
-
-    @Override
-    public void onForecastItemClick(ForecastLocation forecastItem) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPreferences.edit().putString(getString(R.string.pref_location_key), forecastItem.loc_name).apply();
-        mDrawerLayout.closeDrawers();
-    }
 
     @Override
     public void onBookItemClick(BooksResponse forecastItem) {
