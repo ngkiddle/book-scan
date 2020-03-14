@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.sqliteweather.data.ForecastItem;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.text.DateFormat;
 
@@ -51,12 +51,12 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
                 getString(R.string.pref_units_key),
                 getString(R.string.pref_units_default_value)
         );
-        mTemperatureUnitsAbbr = OpenWeatherMapUtils.getTemperatureUnitsAbbr(this, temperatureUnitsValue);
+        mTemperatureUnitsAbbr = GoogleBooksUtils.getTemperatureUnitsAbbr(this, temperatureUnitsValue);
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra(OpenWeatherMapUtils.EXTRA_FORECAST_ITEM)) {
+        if (intent != null && intent.hasExtra(GoogleBooksUtils.EXTRA_FORECAST_ITEM)) {
             mForecastItem = (ForecastItem)intent.getSerializableExtra(
-                    OpenWeatherMapUtils.EXTRA_FORECAST_ITEM
+                    GoogleBooksUtils.EXTRA_FORECAST_ITEM
             );
             fillInLayout(mForecastItem);
         }
@@ -112,7 +112,7 @@ public class ForecastItemDetailActivity extends AppCompatActivity {
         mWindTV.setText(windString);
         mHumidityTV.setText(humidityString);
 
-        String iconURL = OpenWeatherMapUtils.buildIconURL(forecastItem.icon);
+        String iconURL = GoogleBooksUtils.buildIconURL(forecastItem.icon);
         Glide.with(this).load(iconURL).into(mWeatherIconIV);
     }
 }

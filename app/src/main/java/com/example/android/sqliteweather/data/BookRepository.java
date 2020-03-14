@@ -1,9 +1,11 @@
 package com.example.android.sqliteweather.data;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 public class BookRepository implements LoadBookTask.AsyncCallback {
 
@@ -19,7 +21,7 @@ public class BookRepository implements LoadBookTask.AsyncCallback {
     }
 
     public void loadBooks(String isbn){
-        String u = OpenWeatherMapUtils.buildGBurl(isbn);
+        String u = GoogleBooksUtils.buildGBurl(isbn);
         new LoadBookTask(u, this).execute();
     }
 
@@ -33,6 +35,7 @@ public class BookRepository implements LoadBookTask.AsyncCallback {
     @Override
     public void onBookFinished(BooksResponse res) {
         mCurrBook.setValue(res);
+        Log.d("Nice", res.items[0].volumeInfo.title);
         if (mCurrBook != null) {
             mLoadingStatus.setValue(Status.SUCCESS);
         } else {

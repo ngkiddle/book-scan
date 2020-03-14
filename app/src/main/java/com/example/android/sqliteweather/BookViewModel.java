@@ -32,6 +32,12 @@ public class BookViewModel extends ViewModel {
         return mBook;
     }
 
+    public String getTitle() { return mBook.getValue().items[0].volumeInfo.title; }
+    public String getAuthor() { return mBook.getValue().items[0].volumeInfo.authors[0]; }
+    public String getDescription() { return mBook.getValue().items[0].volumeInfo.Description; }
+    public String getIconURL() { return mBook.getValue().items[0].volumeInfo.imageLinks.thumbnail; }
+
+
     public LiveData<Status> getLoadingStatus() {
         return mLoadingStatus;
     }

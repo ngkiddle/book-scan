@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.sqliteweather.data.ForecastItem;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -76,7 +76,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
                     context.getString(R.string.pref_units_key),
                     context.getString(R.string.pref_units_default_value)
             );
-            String temperatureUnitsAbbr = OpenWeatherMapUtils.getTemperatureUnitsAbbr(context, temperatureUnitsValue);
+            String temperatureUnitsAbbr = GoogleBooksUtils.getTemperatureUnitsAbbr(context, temperatureUnitsValue);
 
             String dateString = DateFormat.getDateTimeInstance().format(forecastItem.dateTime);
             String detailString = mForecastTempDescriptionTV.getContext().getString(
@@ -87,7 +87,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             mForecastDateTV.setText(dateString);
             mForecastTempDescriptionTV.setText(detailString);
 
-            String iconURL = OpenWeatherMapUtils.buildIconURL(forecastItem.icon);
+            String iconURL = GoogleBooksUtils.buildIconURL(forecastItem.icon);
             Glide.with(mWeatherIconIV.getContext()).load(iconURL).into(mWeatherIconIV);
         }
 

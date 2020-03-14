@@ -3,7 +3,7 @@ package com.example.android.sqliteweather.data;
 import android.os.AsyncTask;
 
 import com.example.android.sqliteweather.utils.NetworkUtils;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ class LoadForecastTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String s) {
         ArrayList<ForecastItem> forecastItems = null;
         if (s != null) {
-            forecastItems = OpenWeatherMapUtils.parseForecastJSON(s);
+            forecastItems = GoogleBooksUtils.parseForecastJSON(s);
         }
         mCallback.onForecastLoadFinished(forecastItems);
     }
