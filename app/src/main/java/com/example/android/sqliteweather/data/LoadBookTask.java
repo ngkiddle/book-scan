@@ -15,16 +15,16 @@ import java.io.IOException;
  * so it can no longer directly access the fields it needs to update when loading is finished.
  * Instead, we provide a callback function (using AsyncCallback) to perform those updates.
  */
-class LoadBookTask extends AsyncTask<Void, Void, String> {
+public class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     public interface AsyncCallback {
-        void onBookFinished(BooksResponse res);
+        void onBookFinished(BookEntity res);
     }
 
     private String mURL;
     private AsyncCallback mCallback;
 
-    LoadBookTask(String url, AsyncCallback callback) {
+    public LoadBookTask(String url, AsyncCallback callback) {
         mURL = url;
         mCallback = callback;
     }
@@ -42,7 +42,7 @@ class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        BooksResponse res = null;
+        BookEntity res = null;
         try {
             res = GoogleBooksUtils.parseBookJSON(s);
         } catch (Exception e) {

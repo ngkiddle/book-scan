@@ -18,6 +18,7 @@ import com.example.android.sqliteweather.MainActivity;
 import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.bookdetail.BookDetailActivity;
 import com.example.android.sqliteweather.data.BookEntity;
+import com.example.android.sqliteweather.data.LoadBookTask;
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.util.List;
@@ -60,6 +61,8 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
                 }
             }
         });
+
+        mLibraryViewModel.loadBook("9780590353427");
 
         mLibraryViewModel.insertBook(new BookEntity("394723489283947", "Book Title", "Author", "foo bar", "http://www.google.com"));
         mLibraryViewModel.insertBook(new BookEntity("394723489283948", "Book Title2", "Author", "foo bar", "http://www.google.com"));

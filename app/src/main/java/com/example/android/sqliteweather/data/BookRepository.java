@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
-public class BookRepository implements LoadBookTask.AsyncCallback {
+public class BookRepository{
 
     private MutableLiveData<BooksResponse> mCurrBook;
     private MutableLiveData<Status> mLoadingStatus;
@@ -20,10 +20,7 @@ public class BookRepository implements LoadBookTask.AsyncCallback {
         mLoadingStatus.setValue(Status.SUCCESS);
     }
 
-    public void loadBooks(String isbn){
-        String u = GoogleBooksUtils.buildGBurl(isbn);
-        new LoadBookTask(u, this).execute();
-    }
+
 
     public LiveData<BooksResponse> getBook() {
         return mCurrBook;
@@ -32,14 +29,4 @@ public class BookRepository implements LoadBookTask.AsyncCallback {
         return mLoadingStatus;
     }
 
-    @Override
-    public void onBookFinished(BooksResponse res) {
-        mCurrBook.setValue(res);
-        Log.d("Nice", res.items[0].volumeInfo.title);
-        if (mCurrBook != null) {
-            mLoadingStatus.setValue(Status.SUCCESS);
-        } else {
-            mLoadingStatus.setValue(Status.ERROR);
-        }
-    }
 }

@@ -23,7 +23,7 @@ public class BookViewModel extends ViewModel {
     }
 
     public void loadBook(String isbn) {
-        mRepository.loadBooks(isbn);
+        //mRepository.loadBooks(isbn);
     }
 
     public LiveData<BooksResponse> getBook() {
