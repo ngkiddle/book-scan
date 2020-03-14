@@ -22,6 +22,7 @@ public class BookEntity implements Serializable {
         this.Description = Description;
         this.imageLinks = imageLinks;
     }
+
     @Ignore
     public BookEntity(){
 

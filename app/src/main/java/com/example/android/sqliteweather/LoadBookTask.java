@@ -16,7 +16,7 @@ import java.io.IOException;
  * so it can no longer directly access the fields it needs to update when loading is finished.
  * Instead, we provide a callback function (using AsyncCallback) to perform those updates.
  */
-class LoadBookTask extends AsyncTask<Void, Void, String> {
+public class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     public interface AsyncCallback {
         void onBookFinished(BookEntity res);
@@ -25,7 +25,7 @@ class LoadBookTask extends AsyncTask<Void, Void, String> {
     private String mURL;
     private AsyncCallback mCallback;
 
-    LoadBookTask(String url, AsyncCallback callback) {
+    public LoadBookTask(String url, AsyncCallback callback) {
         mURL = url;
         mCallback = callback;
     }
