@@ -1,13 +1,12 @@
-package com.example.android.sqliteweather.data;
+package com.example.android.sqliteweather;
 
 import android.os.AsyncTask;
 
+import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.utils.NetworkUtils;
-import com.example.android.sqliteweather.utils.OpenWeatherMapUtils;
+import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * This is our AsyncTask for loading forecast data from OWM.  It mirrors the AsyncTask we used
@@ -17,37 +16,39 @@ import java.util.List;
  * so it can no longer directly access the fields it needs to update when loading is finished.
  * Instead, we provide a callback function (using AsyncCallback) to perform those updates.
  */
-class LoadForecastTask extends AsyncTask<Void, Void, String> {
+class LoadBookTask extends AsyncTask<Void, Void, String> {
 
     public interface AsyncCallback {
-        void onForecastLoadFinished(List<ForecastItem> forecastItems);
+        void onBookFinished(BookEntity res);
     }
 
     private String mURL;
     private AsyncCallback mCallback;
 
-    LoadForecastTask(String url, AsyncCallback callback) {
+    LoadBookTask(String url, AsyncCallback callback) {
         mURL = url;
         mCallback = callback;
     }
 
     @Override
     protected String doInBackground(Void... voids) {
-        String forecastJSON = null;
+        String res = null;
         try {
-            forecastJSON = NetworkUtils.doHTTPGet(mURL);
+            res = NetworkUtils.doHTTPGet(mURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return forecastJSON;
+        return res;
     }
 
     @Override
     protected void onPostExecute(String s) {
-        ArrayList<ForecastItem> forecastItems = null;
-        if (s != null) {
-            forecastItems = OpenWeatherMapUtils.parseForecastJSON(s);
+        BookEntity res = null;
+        try {
+            res = GoogleBooksUtils.parseBookJSON(s);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        mCallback.onForecastLoadFinished(forecastItems);
+        mCallback.onBookFinished(res);
     }
 }

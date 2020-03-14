@@ -12,7 +12,7 @@ public class SavedCityRepository {
 
     public SavedCityRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
-        mSavedCityDao = db.savedCitiesDao();
+//        mSavedCityDao = db.savedCitiesDao();
     }
 
     public void insertCity(ForecastLocation loc) {
