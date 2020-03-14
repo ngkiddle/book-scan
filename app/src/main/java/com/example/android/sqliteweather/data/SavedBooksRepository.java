@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class SavedBooksRepository {
-    private SavedBooksDoa mSavedBooksDao;
+    private SavedBooksDao mSavedBooksDao;
 
     public SavedBooksRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -29,9 +29,9 @@ public class SavedBooksRepository {
 
     private static class InsertBookAsyncTask
             extends AsyncTask<BookEntity, Void, Void> {
-        private SavedBooksDoa mAsyncTaskDao;
+        private SavedBooksDao mAsyncTaskDao;
 
-        InsertBookAsyncTask(SavedBooksDoa dao) {
+        InsertBookAsyncTask(SavedBooksDao dao) {
             mAsyncTaskDao = dao;
         }
         @Override
@@ -43,9 +43,9 @@ public class SavedBooksRepository {
 
     private static class DeleteBookAsyncTask
             extends AsyncTask<BookEntity, Void, Void> {
-        private SavedBooksDoa mAsyncTaskDao;
+        private SavedBooksDao mAsyncTaskDao;
 
-        DeleteBookAsyncTask(SavedBooksDoa dao) {
+        DeleteBookAsyncTask(SavedBooksDao dao) {
             mAsyncTaskDao = dao;
         }
         @Override

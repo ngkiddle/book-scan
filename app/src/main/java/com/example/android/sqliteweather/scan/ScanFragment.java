@@ -1,8 +1,6 @@
-package com.example.android.sqliteweather.activity.ui.scan;
+package com.example.android.sqliteweather.scan;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -16,7 +14,7 @@ import androidx.annotation.WorkerThread;
 import androidx.fragment.app.Fragment;
 
 import com.example.android.sqliteweather.R;
-import com.example.android.sqliteweather.activity.BookDetailActivity;
+import com.example.android.sqliteweather.bookdetail.BookDetailActivity;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;

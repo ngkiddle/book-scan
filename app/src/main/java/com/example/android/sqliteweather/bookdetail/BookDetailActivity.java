@@ -1,4 +1,4 @@
-package com.example.android.sqliteweather.activity;
+package com.example.android.sqliteweather.bookdetail;
 
 import androidx.appcompat.app.AppCompatActivity;
 

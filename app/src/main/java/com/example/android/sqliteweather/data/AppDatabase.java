@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {BookEntity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract SavedBooksDoa savedBooksDao();
+    public abstract SavedBooksDao savedBooksDao();
     private static volatile AppDatabase INSTANCE;
 
     static AppDatabase getDatabase(final Context context) {

@@ -1,24 +1,11 @@
 package com.example.android.sqliteweather.utils;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.data.BooksResponse;
-import com.example.android.sqliteweather.data.ForecastItem;
 import com.google.gson.Gson;
-
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TimeZone;
 
 public class GoogleBooksUtils {
 

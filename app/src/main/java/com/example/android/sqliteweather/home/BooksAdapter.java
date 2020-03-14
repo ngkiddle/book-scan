@@ -1,20 +1,18 @@
-package com.example.android.sqliteweather;
+package com.example.android.sqliteweather.home;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.data.BookEntity;
-import com.example.android.sqliteweather.data.BooksResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHolder> {

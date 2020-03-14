@@ -1,4 +1,4 @@
-package com.example.android.sqliteweather.activity;
+package com.example.android.sqliteweather.bookdetail;
 
 import java.io.Serializable;
 import java.util.List;
