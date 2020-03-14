@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/book_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,6 +15,7 @@
         <ImageView
             android:id="@+id/book_cover_iv"
             android:layout_width="0dp"
+            android:src="@drawable/placeholder_cover_2"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:layout_height="200dp">
@@ -31,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/book_title_tv"
                 android:textSize="24sp"
-                android:text="Title"
+                android:text="..."
                 android:layout_margin="5dp"
                 />
 
@@ -40,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/book_author_tv"
                 android:textSize="20sp"
-                android:text="Author"
+                android:text="..."
                 android:layout_margin="5dp"
                 />
 
@@ -49,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/book_isbn_tv"
                 android:textSize="14sp"
-                android:text="Author"
+                android:text="..."
                 android:layout_margin="5dp"
                 />
 
@@ -68,21 +70,37 @@
         android:layout_marginRight="8dp"
         android:background="#dadada" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/book_details_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/book_description_tv"
-        android:layout_margin="10dp"
-        android:textSize="20sp"
-        android:text="ajsdhfkjdf kdfghdkfsghjkdfg hjfdgh dfhgdfhs gjdf gkfdsg kdfgjk hdfkjg dfj gkjdfgkdfkg hdfg sdfgk sdfgj dsf gkfdsgdfgk fkdj gkjdfsg jkdfgj dfjkgkdsfg "
-        />
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/book_description_tv"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:text="... "
+            />
 
-    <Button
-        android:id="@+id/action_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:text="Save"/>
+        <Button
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="Save"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/book_loading_pb"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
+
+    </ProgressBar>
 
 </LinearLayout>

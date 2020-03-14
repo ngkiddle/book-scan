@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {BookEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {BookEntity.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract SavedBooksDao savedBooksDao();
     private static volatile AppDatabase INSTANCE;
@@ -18,6 +18,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE =
                             Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "books_db")
+                                    .fallbackToDestructiveMigration()
                                     .build();                }
             }
         }

@@ -106,7 +106,8 @@ public class ScanFragment extends Fragment {
             Log.d(TAG, "handleBarcodes: Found ISBN: " + barcodeVal);
             // Launch activity
             Intent intent = new Intent(getContext(), BookDetailActivity.class);
-            intent.putExtra(BookDetailActivity.EXTRA_ISBN, barcodeVal); //Optional parameters
+            intent.putExtra(BookDetailActivity.EXTRA_ISBN, barcodeVal);
+            intent.putExtra(BookDetailActivity.EXTRA_FETCH_FROM_API, true);
             getContext().startActivity(intent);
             setScanningEnabled(false);
         }

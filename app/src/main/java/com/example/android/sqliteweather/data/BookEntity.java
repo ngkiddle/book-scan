@@ -11,12 +11,14 @@ import java.io.Serializable;
 public class BookEntity implements Serializable {
     @PrimaryKey
     @NonNull
+    public String isbn;
+
     public String title;
     public String authors;
     public String Description;
     public String imageLinks;
-    public BookEntity(@NonNull String title, String authors, String Description, String imageLinks){
-
+    public BookEntity(@NonNull String isbn, String title, String authors, String Description, String imageLinks){
+        this.isbn = isbn;
         this.title = title;
         this.authors = authors;
         this.Description = Description;

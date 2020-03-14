@@ -22,14 +22,14 @@ import java.util.List;
 
 
 public class HomeFragment extends Fragment implements
-        BooksAdapter.OnBookItemClickListener,
+        LibraryAdapter.OnBookItemClickListener,
         LoadBookTask.AsyncCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView mBookItemsRV;
-    private SavedBooksViewModel mSavedBooksViewModel;
-    private BooksAdapter mBooksAdapter;
+    private LibraryViewModel mLibraryViewModel;
+    private LibraryAdapter mLibraryAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,24 +39,24 @@ public class HomeFragment extends Fragment implements
         /* SQLITE CHANGES */
         mBookItemsRV = root.findViewById(R.id.rv_book_items);
         Log.d("setAdapter", "9780605039070");
-        mBooksAdapter = new BooksAdapter (this);
-        mBookItemsRV.setAdapter(mBooksAdapter);
+        mLibraryAdapter = new LibraryAdapter(this);
+        mBookItemsRV.setAdapter(mLibraryAdapter);
         mBookItemsRV.setLayoutManager(new LinearLayoutManager(getContext()));
         mBookItemsRV.setHasFixedSize(true);
-        mSavedBooksViewModel =
+        mLibraryViewModel =
                 new ViewModelProvider(
                         this,
                         new ViewModelProvider.AndroidViewModelFactory(
                                 getActivity().getApplication()
                         )
-                ).get(SavedBooksViewModel.class);
+                ).get(LibraryViewModel.class);
 
-        mSavedBooksViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<BookEntity>>() {
+        mLibraryViewModel.getAllBooks().observe(getViewLifecycleOwner(), new Observer<List<BookEntity>>() {
             @Override
             public void onChanged(List<BookEntity> books) {
                 if(books != null) {
                     Log.d(TAG, "adding nav items: " + books.size());
-                    mBooksAdapter.updateBookItems(books);
+                    mLibraryAdapter.updateBookItems(books);
                 }
             }
         });
@@ -75,6 +75,6 @@ public class HomeFragment extends Fragment implements
 
     @Override
     public void onBookFinished(BookEntity res) {
-        mSavedBooksViewModel.insertBook(res);
+        mLibraryViewModel.insertBook(res);
     }
 }
