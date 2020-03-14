@@ -41,6 +41,7 @@ public class SavedBooksRepository {
         }
         @Override
         protected Void doInBackground(BookEntity... bs) {
+            Log.d(TAG, bs[0].title);
             mAsyncTaskDao.insert(bs[0]);
             return null;
         }
