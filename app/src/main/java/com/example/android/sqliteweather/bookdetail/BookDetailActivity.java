@@ -1,6 +1,8 @@
 package com.example.android.sqliteweather.bookdetail;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.data.BookEntity;
+import com.example.android.sqliteweather.data.SavedBooksRepository;
 import com.example.android.sqliteweather.home.HomeFragment;
 import com.example.android.sqliteweather.home.LibraryViewModel;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -38,8 +41,10 @@ public class BookDetailActivity extends AppCompatActivity {
     private LinearLayout mDetailsLL;
     private ProgressBar mLoadingPB;
     private LibraryViewModel mLibraryViewModel;
+    private SavedBooksRepository mSavedBooksRepo;
     private Context mContext;
     private HomeFragment home;
+    private LiveData<BookEntity> mCachedBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         mViewModel = new ViewModelProvider(this).get(BookDetailViewModel.class);
         mLibraryViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(LibraryViewModel.class);
+        mSavedBooksRepo = new SavedBooksRepository(getApplication());
+        mCachedBook = new MutableLiveData<>();
 
         mActionB = findViewById(R.id.action_b);
         mLoadingPB = findViewById(R.id.book_loading_pb);
@@ -61,15 +68,17 @@ public class BookDetailActivity extends AppCompatActivity {
             fetchFromApi = extras.getBoolean(EXTRA_FETCH_FROM_API, false);
         }
 
-        if(!fetchFromApi) {
+        if (!fetchFromApi) {
             // From list activity, get from database
 
             mViewModel.setButtonText("Share Book");
+            mCachedBook = mSavedBooksRepo.getBookByISBN(isbn);
+
             mActionB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "foo");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "I just added " + mCachedBook.getValue().title + " to my library!");
                     shareIntent.setType("text/plain");
 
                     Intent chooserIntent = Intent.createChooser(shareIntent, null);
@@ -101,7 +110,7 @@ public class BookDetailActivity extends AppCompatActivity {
         mViewModel.getBookEntity().observe(this, new Observer<BookEntity>() {
             @Override
             public void onChanged(BookEntity bookEntity) {
-                if(bookEntity != null) {
+                if (bookEntity != null) {
                     populateViews(bookEntity);
                     toggleProgressBar(false);
                     mLibraryViewModel.insertBook(bookEntity);
@@ -112,10 +121,20 @@ public class BookDetailActivity extends AppCompatActivity {
         mViewModel.getError().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean err) {
-                if(err) {
+                if (err) {
                     toggleProgressBar(false);
                     mActionB.setVisibility(View.GONE);
                     Toast.makeText(BookDetailActivity.this, "Book not found.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mCachedBook.observe(this, new Observer<BookEntity>() {
+            @Override
+            public void onChanged(BookEntity bookEntity) {
+                if (bookEntity != null) {
+                    populateViews(bookEntity);
+                    toggleProgressBar(false);
                 }
             }
         });
