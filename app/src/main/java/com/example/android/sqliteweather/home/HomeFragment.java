@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        /* SQLITE CHANGES */
         mBookItemsRV = root.findViewById(R.id.rv_book_items);
         Log.d("setAdapter", "9780605039070");
         mLibraryAdapter = new LibraryAdapter(this);
@@ -65,10 +64,6 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
             }
         });
 
-//        mLibraryViewModel.insertBook(new BookEntity("394723489283947", "Book Title", "Author", "foo bar", "http://www.google.com"));
-//        mLibraryViewModel.insertBook(new BookEntity("394723489283948", "Book Title2", "Author", "foo bar", "http://www.google.com"));
-
-            /*END CHANGES*/
 
         return root;
     }

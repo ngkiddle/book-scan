@@ -27,6 +27,11 @@ public class SavedBooksRepository {
         return mSavedBooksDao.getAllBooks();
     }
 
+    public LiveData<BookEntity> getBookByISBN(String isbn) {
+        return mSavedBooksDao.getBook(isbn);
+    }
+
+
     public void deleteBook(BookEntity b) {
         new SavedBooksRepository.DeleteBookAsyncTask(mSavedBooksDao).execute(b);
     }
