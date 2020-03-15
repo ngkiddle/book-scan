@@ -45,6 +45,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private Context mContext;
     private HomeFragment home;
     private LiveData<BookEntity> mCachedBook;
+    private BookEntity mCachedBookItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class BookDetailActivity extends AppCompatActivity {
             mActionB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO save to database
+                    mLibraryViewModel.insertBook(mCachedBookItem);
                     onBackPressed();
                 }
             });
@@ -113,7 +114,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 if (bookEntity != null) {
                     populateViews(bookEntity);
                     toggleProgressBar(false);
-                    mLibraryViewModel.insertBook(bookEntity);
+                    mCachedBookItem = bookEntity;
                 }
             }
         });
