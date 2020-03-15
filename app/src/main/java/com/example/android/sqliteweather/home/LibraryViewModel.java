@@ -1,6 +1,7 @@
 package com.example.android.sqliteweather.home;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -21,6 +22,8 @@ public class LibraryViewModel extends AndroidViewModel {
 
     public void insertBook(BookEntity b) {
         mSavedBookRepository.insertBook(b);
+        Log.d("LibraryViewModel", "Storing in DB");
+
     }
 
     public LiveData<List<BookEntity>> getAllBooks() {

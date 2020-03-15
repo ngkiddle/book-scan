@@ -1,13 +1,19 @@
 package com.example.android.sqliteweather.bookdetail;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.android.sqliteweather.MainActivity;
 import com.example.android.sqliteweather.data.BookEntity;
+import com.example.android.sqliteweather.home.HomeFragment;
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 import com.example.android.sqliteweather.utils.NetworkUtils;
+import com.example.android.sqliteweather.home.LibraryViewModel;
 
 import java.io.IOException;
 
@@ -15,6 +21,7 @@ public class BookDetailViewModel extends ViewModel {
     private MutableLiveData<BookEntity> mBookEntity;
     private MutableLiveData<Boolean> mError;
     private MutableLiveData<String> mButtonText;
+
 
     public MutableLiveData<String> getButtonText() {
         return mButtonText;
@@ -31,6 +38,7 @@ public class BookDetailViewModel extends ViewModel {
         mButtonText = new MutableLiveData<>();
         mButtonText.setValue("");
         mError.setValue(false);
+
     }
 
     public MutableLiveData<BookEntity> getBookEntity() {
@@ -53,11 +61,13 @@ public class BookDetailViewModel extends ViewModel {
         }).execute();
     }
 
-    public void fetchBook(String isbn) {
+    public void fetchBook(String isbn, final LibraryViewModel mLibraryViewModel) {
         new FetchBookAsyncTask(isbn, new FetchBookAsyncTask.Callback() {
             @Override
             public void onFinish(BookEntity bookEntity) {
                 mBookEntity.setValue(bookEntity);
+                mLibraryViewModel.insertBook(bookEntity);
+                Log.d("bookDetail", "Storing in DB");
             }
             public void onError() {
                 mError.setValue(true);

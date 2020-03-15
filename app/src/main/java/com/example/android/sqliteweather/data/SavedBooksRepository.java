@@ -20,6 +20,7 @@ public class SavedBooksRepository {
 
     public void insertBook(BookEntity b) {
         new SavedBooksRepository.InsertBookAsyncTask(mSavedBooksDao).execute(b);
+        Log.d("SavedBookRepository", "Storing in DB");
     }
 
     public LiveData<List<BookEntity>> getAllBooks() {
@@ -40,6 +41,8 @@ public class SavedBooksRepository {
         @Override
         protected Void doInBackground(BookEntity... bs) {
             mAsyncTaskDao.insert(bs[0]);
+            Log.d("SavedBookRepo.AsyncTask", "Storing in DB");
+
             return null;
         }
     }

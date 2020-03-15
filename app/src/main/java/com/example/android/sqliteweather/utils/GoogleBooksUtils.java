@@ -11,7 +11,7 @@ public class GoogleBooksUtils {
 
     private final static String GB_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
     private final static String GB_QUERY_PARAM= "q";
-    private long mISBN;
+    private static String mISBN;
 
 
     /*
@@ -26,6 +26,7 @@ public class GoogleBooksUtils {
      */
 
     public static String buildGBurl(String isbn) {
+        mISBN = isbn;
         return Uri.parse(GB_BASE_URL).buildUpon()
                 .appendQueryParameter(GB_QUERY_PARAM, "isbn:" + isbn)
                 .build()
@@ -45,7 +46,7 @@ public class GoogleBooksUtils {
                 b.authors += ", ";
             }
         }
-
+        b.isbn = mISBN;
         b.title = res.items[0].volumeInfo.title;
         b.Description = res.items[0].volumeInfo.Description;
         b.imageLinks = res.items[0].volumeInfo.imageLinks.thumbnail;

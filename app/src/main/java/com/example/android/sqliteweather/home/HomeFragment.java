@@ -1,6 +1,7 @@
 package com.example.android.sqliteweather.home;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,18 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.sqliteweather.MainActivity;
 import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.bookdetail.BookDetailActivity;
+import com.example.android.sqliteweather.bookdetail.BookDetailViewModel;
 import com.example.android.sqliteweather.data.BookEntity;
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
+import com.example.android.sqliteweather.utils.NetworkUtils;
 
+import java.io.IOException;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemClickListener {
+public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemClickListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView mBookItemsRV;
-    private LibraryViewModel mLibraryViewModel;
+    public LibraryViewModel mLibraryViewModel;
     private LibraryAdapter mLibraryAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,9 +65,10 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
             }
         });
 
-        mLibraryViewModel.insertBook(new BookEntity("394723489283947", "Book Title", "Author", "foo bar", "http://www.google.com"));
-        mLibraryViewModel.insertBook(new BookEntity("394723489283948", "Book Title2", "Author", "foo bar", "http://www.google.com"));
-        /*END CHANGES*/
+//        mLibraryViewModel.insertBook(new BookEntity("394723489283947", "Book Title", "Author", "foo bar", "http://www.google.com"));
+//        mLibraryViewModel.insertBook(new BookEntity("394723489283948", "Book Title2", "Author", "foo bar", "http://www.google.com"));
+
+            /*END CHANGES*/
 
         return root;
     }

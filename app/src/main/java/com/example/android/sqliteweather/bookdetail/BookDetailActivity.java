@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.sqliteweather.R;
 import com.example.android.sqliteweather.data.BookEntity;
+import com.example.android.sqliteweather.home.HomeFragment;
 import com.example.android.sqliteweather.home.LibraryViewModel;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,11 +39,11 @@ public class BookDetailActivity extends AppCompatActivity {
     private ProgressBar mLoadingPB;
     private LibraryViewModel mLibraryViewModel;
     private Context mContext;
+    private HomeFragment home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         setContentView(R.layout.activity_book_detail);
         mViewModel = new ViewModelProvider(this).get(BookDetailViewModel.class);
         mLibraryViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(LibraryViewModel.class);
@@ -84,7 +86,8 @@ public class BookDetailActivity extends AppCompatActivity {
                     onBackPressed();
                 }
             });
-            mViewModel.fetchBook("9780060531041");
+            mViewModel.fetchBook(isbn, mLibraryViewModel);
+            Log.d("getAllBookDeet", "" + mLibraryViewModel.getAllBooks());
             toggleProgressBar(true);
         }
 
