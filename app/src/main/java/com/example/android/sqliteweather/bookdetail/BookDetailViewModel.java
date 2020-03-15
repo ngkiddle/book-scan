@@ -1,5 +1,6 @@
 package com.example.android.sqliteweather.bookdetail;
 
+import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android.sqliteweather.MainActivity;
 import com.example.android.sqliteweather.data.BookEntity;
+import com.example.android.sqliteweather.data.SavedBooksRepository;
 import com.example.android.sqliteweather.home.HomeFragment;
 import com.example.android.sqliteweather.utils.GoogleBooksUtils;
 import com.example.android.sqliteweather.utils.NetworkUtils;
@@ -21,6 +23,7 @@ public class BookDetailViewModel extends ViewModel {
     private MutableLiveData<BookEntity> mBookEntity;
     private MutableLiveData<Boolean> mError;
     private MutableLiveData<String> mButtonText;
+    private SavedBooksRepository mSavedBooksRepo;
 
 
     public MutableLiveData<String> getButtonText() {
@@ -38,7 +41,6 @@ public class BookDetailViewModel extends ViewModel {
         mButtonText = new MutableLiveData<>();
         mButtonText.setValue("");
         mError.setValue(false);
-
     }
 
     public MutableLiveData<BookEntity> getBookEntity() {
