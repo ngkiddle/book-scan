@@ -60,6 +60,8 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
                 if(books != null) {
                     Log.d(TAG, "adding nav items: " + books.size());
                     mLibraryAdapter.updateBookItems(books);
+                } else {
+                    Log.d(TAG, "onChanged: Books null");
                 }
             }
         });

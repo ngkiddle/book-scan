@@ -29,7 +29,7 @@
             android:layout_marginHorizontal="8dp"
             android:background="@android:color/holo_red_light"
             android:padding="16dp"
-            android:text="@string/loading_error_message"
+            android:text="Error loading."
             android:textColor="#fff"
             android:textSize="24sp"
             android:visibility="invisible" />
