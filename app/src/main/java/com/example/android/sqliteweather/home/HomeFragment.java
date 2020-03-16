@@ -1,5 +1,6 @@
 package com.example.android.sqliteweather.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,11 +37,15 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
     private RecyclerView mBookItemsRV;
     public LibraryViewModel mLibraryViewModel;
     private LibraryAdapter mLibraryAdapter;
+    private Button mNoBooksB;
+    private FrameLayout mNoBooksFL;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mNoBooksFL = root.findViewById(R.id.home_nobooks_fl);
+        mNoBooksB = root.findViewById(R.id.home_nobooks_b);
 
         mBookItemsRV = root.findViewById(R.id.rv_book_items);
         Log.d("setAdapter", "9780605039070");
@@ -60,12 +67,23 @@ public class HomeFragment extends Fragment implements LibraryAdapter.OnBookItemC
                 if(books != null) {
                     Log.d(TAG, "adding nav items: " + books.size());
                     mLibraryAdapter.updateBookItems(books);
-                } else {
-                    Log.d(TAG, "onChanged: Books null");
+
+                    if(books.size() == 0) {
+                        mNoBooksFL.setVisibility(View.VISIBLE);
+                    } else {
+                        mNoBooksFL.setVisibility(View.GONE);
+                    }
                 }
             }
         });
 
+        mNoBooksB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Activity activity = getActivity();
+                if(activity != null) ((MainActivity)activity).navigate(R.id.navigation_scan);
+            }
+        });
 
         return root;
     }

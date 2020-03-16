@@ -8,39 +8,62 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/home_nobooks_fl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_book_items"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_forecast_items"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/tv_loading_error_message"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:background="@android:color/holo_red_light"
-            android:padding="16dp"
-            android:text="Error loading."
-            android:textColor="#fff"
-            android:textSize="24sp"
-            android:visibility="invisible" />
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-        <ProgressBar
-            android:id="@+id/pb_loading_indicator"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_margin="32dp"
-            android:layout_gravity="top|center_horizontal"
-            android:visibility="invisible"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="No books added yet."
+                android:textSize="20sp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/home_nobooks_b"
+                android:layout_margin="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Add Books"/>
+
+        </LinearLayout>
+
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_book_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_forecast_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_loading_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:background="@android:color/holo_red_light"
+        android:padding="16dp"
+        android:text="Error loading."
+        android:textColor="#fff"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading_indicator"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="32dp"
+        android:layout_gravity="top|center_horizontal"
+        android:visibility="gone"/>
 
 </LinearLayout>
